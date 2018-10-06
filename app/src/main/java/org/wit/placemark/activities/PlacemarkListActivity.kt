@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import kotlinx.android.synthetic.main.activity_placemark_list.*
 import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.wit.placemark.R
 import org.wit.placemark.main.MainApp
@@ -46,6 +47,7 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     when (item?.itemId) {
       R.id.item_add -> startActivityForResult<PlacemarkActivity>(0)
+      R.id.item_map -> startActivity<PlacemarkMapsActivity>()
     }
     return super.onOptionsItemSelected(item)
   }

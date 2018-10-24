@@ -1,4 +1,4 @@
-package org.wit.placemark.activities
+package org.wit.placemark.views.placemarklist
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity

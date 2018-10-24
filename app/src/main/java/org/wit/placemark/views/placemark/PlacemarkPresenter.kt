@@ -1,7 +1,8 @@
-package org.wit.placemark.activities
+package org.wit.placemark.views.placemark
 
 import android.content.Intent
 import org.jetbrains.anko.intentFor
+import org.wit.placemark.views.editlocation.EditLocationView
 import org.wit.placemark.helpers.showImagePicker
 import org.wit.placemark.main.MainApp
 import org.wit.placemark.models.Location

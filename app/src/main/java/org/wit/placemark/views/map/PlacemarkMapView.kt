@@ -6,20 +6,20 @@ import android.support.v7.app.AppCompatActivity
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import org.wit.placemark.R
-import kotlinx.android.synthetic.main.activity_placemark_maps.*
-import kotlinx.android.synthetic.main.content_placemark_maps.*
+import kotlinx.android.synthetic.main.activity_placemark_map.*
+import kotlinx.android.synthetic.main.content_placemark_map.*
 import org.wit.placemark.helpers.readImageFromPath
 import org.wit.placemark.models.PlacemarkModel
 
-class PlacemarkMapsView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
+class PlacemarkMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
-  lateinit var presenter: PlacemarkMapsPresenter
+  lateinit var presenter: PlacemarkMapPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_placemark_maps)
+    setContentView(R.layout.activity_placemark_map)
     setSupportActionBar(toolbarMaps)
-    presenter = PlacemarkMapsPresenter(this)
+    presenter = PlacemarkMapPresenter(this)
 
     mapView.onCreate(savedInstanceState);
     mapView.getMapAsync {

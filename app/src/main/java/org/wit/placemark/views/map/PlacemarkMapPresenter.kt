@@ -7,7 +7,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.placemark.main.MainApp
 
-class PlacemarkMapsPresenter(val view: PlacemarkMapsView) {
+class PlacemarkMapPresenter(val view: PlacemarkMapView) {
 
   var app: MainApp
 

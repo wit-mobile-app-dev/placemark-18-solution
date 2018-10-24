@@ -12,8 +12,8 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-    <activity android:name=".activities.PlacemarkActivity" />
-    <activity android:name=".activities.PlacemarkListActivity">
+    <activity android:name=".activities.PlacemarkView" />
+    <activity android:name=".activities.PlacemarkListView">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +26,7 @@
       android:value="@string/google_maps_key" />
 
     <activity
-      android:name=".activities.MapsActivity"
+      android:name=".activities.EditLocationView"
       android:label="@string/title_activity_maps" />
     <activity
       android:name=".activities.PlacemarkMapsActivity"

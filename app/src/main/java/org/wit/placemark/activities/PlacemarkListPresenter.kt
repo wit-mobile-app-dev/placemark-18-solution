@@ -6,25 +6,25 @@ import org.jetbrains.anko.startActivityForResult
 import org.wit.placemark.main.MainApp
 import org.wit.placemark.models.PlacemarkModel
 
-class PlacemarkListPresenter(val activity: PlacemarkListActivity) {
+class PlacemarkListPresenter(val view: PlacemarkListView) {
 
   var app: MainApp
 
   init {
-    app = activity.application as MainApp
+    app = view.application as MainApp
   }
 
   fun getPlacemarks() = app.placemarks.findAll()
 
   fun doAddPlacemark() {
-    activity.startActivityForResult<PlacemarkActivity>(0)
+    view.startActivityForResult<PlacemarkView>(0)
   }
 
   fun doEditPlacemark(placemark: PlacemarkModel) {
-    activity.startActivityForResult(activity.intentFor<PlacemarkActivity>().putExtra("placemark_edit", placemark), 0)
+    view.startActivityForResult(view.intentFor<PlacemarkView>().putExtra("placemark_edit", placemark), 0)
   }
 
   fun doShowPlacemarksMap() {
-    activity.startActivity<PlacemarkMapsActivity>()
+    view.startActivity<PlacemarkMapsActivity>()
   }
 }

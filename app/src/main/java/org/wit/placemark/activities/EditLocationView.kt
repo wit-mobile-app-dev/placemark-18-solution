@@ -7,16 +7,16 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
 import org.wit.placemark.R
 
-class MapsActivity : AppCompatActivity(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
+class EditLocationView : AppCompatActivity(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
 
   lateinit var map: GoogleMap
-  lateinit var presenter: MapsPresenter
+  lateinit var presenter: EditLocationPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_maps)
     val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-    presenter = MapsPresenter(this)
+    presenter = EditLocationPresenter(this)
     mapFragment.getMapAsync {
       map = it
       map.setOnMarkerDragListener(this)

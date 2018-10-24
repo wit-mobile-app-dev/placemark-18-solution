@@ -7,7 +7,7 @@ import org.wit.placemark.main.MainApp
 import org.wit.placemark.models.Location
 import org.wit.placemark.models.PlacemarkModel
 
-class PlacemarkPresenter(val activity: PlacemarkActivity) {
+class PlacemarkPresenter(val view: PlacemarkView) {
 
   val IMAGE_REQUEST = 1
   val LOCATION_REQUEST = 2
@@ -18,11 +18,11 @@ class PlacemarkPresenter(val activity: PlacemarkActivity) {
   var edit = false;
 
   init {
-    app = activity.application as MainApp
-    if (activity.intent.hasExtra("placemark_edit")) {
+    app = view.application as MainApp
+    if (view.intent.hasExtra("placemark_edit")) {
       edit = true
-      placemark = activity.intent.extras.getParcelable<PlacemarkModel>("placemark_edit")
-      activity.showPlacemark(placemark)
+      placemark = view.intent.extras.getParcelable<PlacemarkModel>("placemark_edit")
+      view.showPlacemark(placemark)
     }
   }
 
@@ -34,20 +34,20 @@ class PlacemarkPresenter(val activity: PlacemarkActivity) {
     } else {
       app.placemarks.create(placemark)
     }
-    activity.finish()
+    view.finish()
   }
 
   fun doCancel() {
-    activity.finish()
+    view.finish()
   }
 
   fun doDelete() {
     app.placemarks.delete(placemark)
-    activity.finish()
+    view.finish()
   }
 
   fun doSelectImage() {
-    showImagePicker(activity, IMAGE_REQUEST)
+    showImagePicker(view, IMAGE_REQUEST)
   }
 
   fun doSetLocation() {
@@ -56,14 +56,14 @@ class PlacemarkPresenter(val activity: PlacemarkActivity) {
       location.lng = placemark.lng
       location.zoom = placemark.zoom
     }
-    activity.startActivityForResult(activity.intentFor<MapsActivity>().putExtra("location", location), LOCATION_REQUEST)
+    view.startActivityForResult(view.intentFor<EditLocationView>().putExtra("location", location), LOCATION_REQUEST)
   }
 
   fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
     when (requestCode) {
       IMAGE_REQUEST -> {
         placemark.image = data.data.toString()
-        activity.showPlacemark(placemark)
+        view.showPlacemark(placemark)
       }
       LOCATION_REQUEST -> {
         location = data.extras.getParcelable<Location>("location")

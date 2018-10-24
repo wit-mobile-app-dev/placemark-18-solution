@@ -9,12 +9,12 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.placemark.models.Location
 
-class MapsPresenter(val activity: MapsActivity) {
+class EditLocationPresenter(val view: EditLocationView) {
 
   var location = Location()
 
   init {
-    location = activity.intent.extras.getParcelable<Location>("location")
+    location = view.intent.extras.getParcelable<Location>("location")
   }
 
   fun initMap(map: GoogleMap) {
@@ -37,8 +37,8 @@ class MapsPresenter(val activity: MapsActivity) {
   fun doOnBackPressed() {
     val resultIntent = Intent()
     resultIntent.putExtra("location", location)
-    activity.setResult(Activity.RESULT_OK, resultIntent)
-    activity.finish()
+    view.setResult(Activity.RESULT_OK, resultIntent)
+    view.finish()
   }
 
   fun doUpdateMarker(marker: Marker) {

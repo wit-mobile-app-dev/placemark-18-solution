@@ -12,7 +12,7 @@ import org.wit.placemark.R
 import org.wit.placemark.helpers.readImageFromPath
 import org.wit.placemark.models.PlacemarkModel
 
-class PlacemarkActivity : AppCompatActivity(), AnkoLogger {
+class PlacemarkView : AppCompatActivity(), AnkoLogger {
 
   lateinit var presenter: PlacemarkPresenter
   var placemark = PlacemarkModel()

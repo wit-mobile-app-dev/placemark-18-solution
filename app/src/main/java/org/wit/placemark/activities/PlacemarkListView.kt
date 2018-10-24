@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_placemark_list.*
 import org.wit.placemark.R
 import org.wit.placemark.models.PlacemarkModel
 
-class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
+class PlacemarkListView : AppCompatActivity(), PlacemarkListener {
 
   lateinit var presenter: PlacemarkListPresenter
 

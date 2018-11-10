@@ -16,7 +16,7 @@ class PlacemarkListView :  BaseView(), PlacemarkListener {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_placemark_list)
-    setSupportActionBar(toolbarMain)
+    init(toolbarMain)
 
     presenter = initPresenter(PlacemarkListPresenter(this)) as PlacemarkListPresenter
 

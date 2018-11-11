@@ -5,6 +5,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.placemark.models.json.PlacemarkJSONStore
 import org.wit.placemark.models.PlacemarkStore
+import org.wit.placemark.room.PlacemarkStoreRoom
 
 class MainApp : Application(), AnkoLogger {
 
@@ -12,7 +13,8 @@ class MainApp : Application(), AnkoLogger {
 
   override fun onCreate() {
     super.onCreate()
-    placemarks = PlacemarkJSONStore(applicationContext)
+    //placemarks = PlacemarkJSONStore(applicationContext)
+    placemarks = PlacemarkStoreRoom(applicationContext)
     info("Placemark started")
   }
 }

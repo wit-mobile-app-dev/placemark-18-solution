@@ -10,6 +10,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 import org.wit.placemark.helpers.checkLocationPermissions
 import org.wit.placemark.helpers.createDefaultLocationRequest
 import org.wit.placemark.helpers.isPermissionGranted
@@ -91,12 +93,14 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   fun doAddOrSave(title: String, description: String) {
     placemark.title = title
     placemark.description = description
-    if (edit) {
-      app.placemarks.update(placemark)
-    } else {
-      app.placemarks.create(placemark)
+    async(UI) {
+      if (edit) {
+        app.placemarks.update(placemark)
+      } else {
+        app.placemarks.create(placemark)
+      }
+      view?.finish()
     }
-    view?.finish()
   }
 
   fun doCancel() {
@@ -104,8 +108,10 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   }
 
   fun doDelete() {
-    app.placemarks.delete(placemark)
-    view?.finish()
+    async(UI) {
+      app.placemarks.delete(placemark)
+      view?.finish()
+    }
   }
 
   fun doSelectImage() {

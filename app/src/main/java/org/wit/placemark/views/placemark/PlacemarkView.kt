@@ -29,11 +29,10 @@ class PlacemarkView : BaseView(), AnkoLogger {
     mapView.onCreate(savedInstanceState);
     mapView.getMapAsync {
       presenter.doConfigureMap(it)
+      it.setOnMapClickListener { presenter.doSetLocation() }
     }
 
     chooseImage.setOnClickListener { presenter.doSelectImage() }
-
-    placemarkLocation.setOnClickListener { presenter.doSetLocation() }
   }
 
   override fun showPlacemark(placemark: PlacemarkModel) {

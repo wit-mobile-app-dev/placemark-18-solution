@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_placemark.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
@@ -24,6 +25,11 @@ class PlacemarkView : BaseView(), AnkoLogger {
     init(toolbarAdd)
 
     presenter = initPresenter (PlacemarkPresenter(this)) as PlacemarkPresenter
+
+    mapView.onCreate(savedInstanceState);
+    mapView.getMapAsync {
+      presenter.doConfigureMap(it)
+    }
 
     chooseImage.setOnClickListener { presenter.doSelectImage() }
 
@@ -69,6 +75,31 @@ class PlacemarkView : BaseView(), AnkoLogger {
 
   override fun onBackPressed() {
     presenter.doCancel()
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    mapView.onDestroy()
+  }
+
+  override fun onLowMemory() {
+    super.onLowMemory()
+    mapView.onLowMemory()
+  }
+
+  override fun onPause() {
+    super.onPause()
+    mapView.onPause()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    mapView.onResume()
+  }
+
+  override fun onSaveInstanceState(outState: Bundle?) {
+    super.onSaveInstanceState(outState)
+    mapView.onSaveInstanceState(outState)
   }
 }
 

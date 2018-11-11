@@ -2,7 +2,7 @@ package org.wit.placemark.views.placemarklist
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
 import kotlinx.android.synthetic.main.activity_placemark_list.*
 import org.wit.placemark.R

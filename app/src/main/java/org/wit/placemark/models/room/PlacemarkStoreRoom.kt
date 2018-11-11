@@ -51,6 +51,6 @@ class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
     }
   }
 
-  fun clear() {
+  override fun clear() {
   }
 }

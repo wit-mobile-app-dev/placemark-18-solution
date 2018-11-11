@@ -6,4 +6,5 @@ interface PlacemarkStore {
   suspend fun create(placemark: PlacemarkModel)
   suspend fun update(placemark: PlacemarkModel)
   suspend fun delete(placemark: PlacemarkModel)
+  fun clear()
 }

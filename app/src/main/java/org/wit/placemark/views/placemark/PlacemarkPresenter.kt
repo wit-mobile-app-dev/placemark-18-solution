@@ -1,6 +1,10 @@
 package org.wit.placemark.views.placemark
 
 import android.content.Intent
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.placemark.helpers.showImagePicker
 import org.wit.placemark.models.Location
 import org.wit.placemark.models.PlacemarkModel
@@ -8,6 +12,7 @@ import org.wit.placemark.views.*
 
 class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
 
+  var map: GoogleMap? = null
   var placemark = PlacemarkModel()
   var defaultLocation = Location(52.245696, -7.139102, 15f)
   var edit = false;
@@ -17,8 +22,29 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
       edit = true
       placemark = view.intent.extras.getParcelable<PlacemarkModel>("placemark_edit")
       view.showPlacemark(placemark)
+    } else {
+      placemark.lat = defaultLocation.lat
+      placemark.lng = defaultLocation.lng
     }
   }
+
+  fun doConfigureMap(m: GoogleMap) {
+    map = m
+    locationUpdate(placemark.lat, placemark.lng)
+  }
+
+  fun locationUpdate(lat: Double, lng: Double) {
+    placemark.lat = lat
+    placemark.lng = lng
+    placemark.zoom = 15f
+    map?.clear()
+    map?.uiSettings?.setZoomControlsEnabled(true)
+    val options = MarkerOptions().title(placemark.title).position(LatLng(placemark.lat, placemark.lng))
+    map?.addMarker(options)
+    map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(placemark.lat, placemark.lng), placemark.zoom))
+    view?.showPlacemark(placemark)
+  }
+
 
   fun doAddOrSave(title: String, description: String) {
     placemark.title = title
@@ -65,6 +91,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
         placemark.lat = location.lat
         placemark.lng = location.lng
         placemark.zoom = location.zoom
+        locationUpdate(placemark.lat, placemark.lng)
       }
     }
   }

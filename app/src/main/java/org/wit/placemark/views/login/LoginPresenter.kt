@@ -4,6 +4,7 @@ import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.FirebaseAuth
 import org.jetbrains.anko.generated.appcompatV7.R.id.info
 import org.jetbrains.anko.toast
+import org.wit.placemark.models.firebase.PlacemarkFireStore
 import org.wit.placemark.views.BasePresenter
 import org.wit.placemark.views.BaseView
 import org.wit.placemark.views.VIEW
@@ -11,12 +12,26 @@ import org.wit.placemark.views.VIEW
 class LoginPresenter(view: BaseView) : BasePresenter(view) {
 
   var auth: FirebaseAuth = FirebaseAuth.getInstance()
+  var fireStore: PlacemarkFireStore? = null
+
+  init {
+    if (app.placemarks is PlacemarkFireStore) {
+      fireStore = app.placemarks as PlacemarkFireStore
+    }
+  }
 
   fun doLogin(email: String, password: String) {
     view?.showProgress()
     auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task ->
       if (task.isSuccessful) {
-        view?.navigateTo(VIEW.LIST)
+        if (fireStore != null) {
+          fireStore!!.fetchPlacemarks {
+            view?.navigateTo(VIEW.LIST)
+          }
+        }
+        else {
+          view?.navigateTo(VIEW.LIST)
+        }
       } else {
         view?.toast("Sign Up Failed: ${task.exception?.message}")
       }

@@ -1,9 +1,9 @@
 package org.wit.placemark.models
 
 interface PlacemarkStore {
-  fun findAll(): List<PlacemarkModel>
-  fun findById(id:Long) : PlacemarkModel?
-  fun create(placemark: PlacemarkModel)
-  fun update(placemark: PlacemarkModel)
-  fun delete(placemark: PlacemarkModel)
+  suspend fun findAll(): List<PlacemarkModel>
+  suspend fun findById(id:Long) : PlacemarkModel?
+  suspend fun create(placemark: PlacemarkModel)
+  suspend fun update(placemark: PlacemarkModel)
+  suspend fun delete(placemark: PlacemarkModel)
 }

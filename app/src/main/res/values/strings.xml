@@ -14,5 +14,8 @@
   <string name="title_activity_maps">Map</string>
   <string name="menu_deletePlacemark">Delete</string>
   <string name="title_activity_placemark_maps">Map of all Placemarks</string>
+  <string name="title_activity_placemark_list">Placemarks</string>
+  <string name="title_activity_placemark">Placemark</string>
+  <string name="title_activity_edit_location">Placemark</string>
 
 </resources>

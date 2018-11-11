@@ -26,4 +26,8 @@ class PlacemarkListPresenter(view: BaseView) : BasePresenter(view) {
       view?.showPlacemarks(app.placemarks.findAll())
     }
   }
+
+  fun doLogout() {
+    view?.navigateTo(VIEW.LOGIN)
+  }
 }

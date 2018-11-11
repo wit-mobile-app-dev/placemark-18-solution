@@ -17,24 +17,38 @@ class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
     dao = database.placemarkDao()
   }
 
-  override fun findAll(): List<PlacemarkModel> {
-    return dao.findAll()
+  suspend override fun findAll(): List<PlacemarkModel> {
+    val deferredPlacemarks = bg {
+      dao.findAll()
+    }
+    val placemarks = deferredPlacemarks.await()
+    return placemarks
   }
 
-  override fun findById(id: Long): PlacemarkModel? {
-    return dao.findById(id)
+  suspend override fun findById(id: Long): PlacemarkModel? {
+    val deferredPlacemark = bg {
+      dao.findById(id)
+    }
+    val placemark = deferredPlacemark.await()
+    return placemark
   }
 
-  override fun create(placemark: PlacemarkModel) {
-    dao.create(placemark)
+  suspend override fun create(placemark: PlacemarkModel) {
+    bg {
+      dao.create(placemark)
+    }
   }
 
-  override fun update(placemark: PlacemarkModel) {
-    dao.update(placemark)
+  suspend override fun update(placemark: PlacemarkModel) {
+    bg {
+      dao.update(placemark)
+    }
   }
 
-  override fun delete(placemark: PlacemarkModel) {
-    dao.deletePlacemark(placemark)
+  suspend override fun delete(placemark: PlacemarkModel) {
+    bg {
+      dao.deletePlacemark(placemark)
+    }
   }
 
   fun clear() {

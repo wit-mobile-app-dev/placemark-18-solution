@@ -26,16 +26,18 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
       if (task.isSuccessful) {
         if (fireStore != null) {
           fireStore!!.fetchPlacemarks {
+            view?.hideProgress()
             view?.navigateTo(VIEW.LIST)
           }
         }
         else {
+          view?.hideProgress()
           view?.navigateTo(VIEW.LIST)
         }
       } else {
         view?.toast("Sign Up Failed: ${task.exception?.message}")
+        view?.hideProgress()
       }
-      view?.hideProgress()
     }
   }
 

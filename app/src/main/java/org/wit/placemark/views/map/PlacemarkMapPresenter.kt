@@ -24,10 +24,8 @@ class PlacemarkMapPresenter(view: BaseView) : BasePresenter(view) {
   }
 
   fun doMarkerSelected(marker: Marker) {
-    async(UI) {
-      val placemark = marker.tag as PlacemarkModel
-      if (placemark != null) view?.showPlacemark(placemark)
-    }
+    val placemark = marker.tag as PlacemarkModel
+    if (placemark != null) view?.showPlacemark(placemark)
   }
 
   fun loadPlacemarks() {

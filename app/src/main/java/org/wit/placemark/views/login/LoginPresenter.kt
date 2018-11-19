@@ -1,8 +1,6 @@
 package org.wit.placemark.views.login
 
-import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.FirebaseAuth
-import org.jetbrains.anko.generated.appcompatV7.R.id.info
 import org.jetbrains.anko.toast
 import org.wit.placemark.models.firebase.PlacemarkFireStore
 import org.wit.placemark.views.BasePresenter
@@ -29,14 +27,13 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
             view?.hideProgress()
             view?.navigateTo(VIEW.LIST)
           }
-        }
-        else {
+        } else {
           view?.hideProgress()
           view?.navigateTo(VIEW.LIST)
         }
       } else {
-        view?.toast("Sign Up Failed: ${task.exception?.message}")
         view?.hideProgress()
+        view?.toast("Sign Up Failed: ${task.exception?.message}")
       }
     }
   }
@@ -45,11 +42,12 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
     view?.showProgress()
     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task ->
       if (task.isSuccessful) {
+        view?.hideProgress()
         view?.navigateTo(VIEW.LIST)
       } else {
+        view?.hideProgress()
         view?.toast("Sign Up Failed: ${task.exception?.message}")
       }
-      view?.hideProgress()
     }
   }
 }

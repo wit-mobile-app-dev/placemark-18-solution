@@ -7,7 +7,6 @@ import com.google.android.gms.maps.model.Marker
 import org.wit.placemark.R
 import kotlinx.android.synthetic.main.activity_placemark_map.*
 import kotlinx.android.synthetic.main.content_placemark_map.*
-import org.wit.placemark.helpers.readImageFromPath
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BaseView
 

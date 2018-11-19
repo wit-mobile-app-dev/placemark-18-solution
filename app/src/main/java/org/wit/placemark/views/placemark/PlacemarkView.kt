@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.bumptech.glide.Glide
-import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_placemark.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 import org.wit.placemark.R
-import org.wit.placemark.helpers.readImageFromPath
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BaseView
 

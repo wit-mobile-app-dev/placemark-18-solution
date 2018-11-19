@@ -1,7 +1,6 @@
 package org.wit.placemark.views.login
 
 import android.os.Bundle
-import android.view.View
 import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast

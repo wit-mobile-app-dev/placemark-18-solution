@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginBottom="8dp"
+  android:elevation="32dp"
+  app:cardBackgroundColor="@color/colorAccent"
+  app:cardPreventCornerOverlap="false">
+
+  <TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Lat:"
+        android:textAlignment="textEnd" />
+
+      <TextView
+        android:id="@+id/lat"
+        android:layout_width="103dp"
+        android:layout_height="wrap_content"
+        android:text="00.000000"
+        android:textAlignment="textStart" />
+    </TableRow>
+
+    <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lng:"
+        android:textAlignment="textEnd" />
+
+      <TextView
+        android:id="@+id/lng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00.000000"
+        android:textAlignment="textStart" />
+    </TableRow>
+
+  </TableLayout>
+</androidx.cardview.widget.CardView>

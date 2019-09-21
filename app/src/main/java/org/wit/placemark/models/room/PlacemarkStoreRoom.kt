@@ -2,11 +2,13 @@ package org.wit.placemark.room
 
 import android.content.Context
 import androidx.room.Room
-import org.jetbrains.anko.coroutines.experimental.bg
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.models.PlacemarkStore
 
 class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
+  override fun clear() {
+    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+  }
 
   var dao: PlacemarkDao
 
@@ -17,40 +19,24 @@ class PlacemarkStoreRoom(val context: Context) : PlacemarkStore {
     dao = database.placemarkDao()
   }
 
-  suspend override fun findAll(): List<PlacemarkModel> {
-    val deferredPlacemarks = bg {
-      dao.findAll()
-    }
-    val placemarks = deferredPlacemarks.await()
-    return placemarks
+  override fun findAll(): List<PlacemarkModel> {
+    return dao.findAll()
   }
 
-  suspend override fun findById(id: Long): PlacemarkModel? {
-    val deferredPlacemark = bg {
-      dao.findById(id)
-    }
-    val placemark = deferredPlacemark.await()
-    return placemark
+  override fun findById(id: Long): PlacemarkModel? {
+    return dao.findById(id)
   }
 
-  suspend override fun create(placemark: PlacemarkModel) {
-    bg {
-      dao.create(placemark)
-    }
+  override fun create(placemark: PlacemarkModel) {
+    dao.create(placemark)
   }
 
-  suspend override fun update(placemark: PlacemarkModel) {
-    bg {
-      dao.update(placemark)
-    }
+  override fun update(placemark: PlacemarkModel) {
+    dao.update(placemark)
   }
 
-  suspend override fun delete(placemark: PlacemarkModel) {
-    bg {
-      dao.deletePlacemark(placemark)
-    }
+  override fun delete(placemark: PlacemarkModel) {
+    dao.deletePlacemark(placemark)
   }
 
-  override fun clear() {
-  }
 }

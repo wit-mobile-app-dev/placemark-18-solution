@@ -20,16 +20,16 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
   lateinit var db: DatabaseReference
   lateinit var st: StorageReference
 
-  suspend override fun findAll(): List<PlacemarkModel> {
+   override fun findAll(): List<PlacemarkModel> {
     return placemarks
   }
 
-  suspend override fun findById(id: Long): PlacemarkModel? {
+   override fun findById(id: Long): PlacemarkModel? {
     val foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.id == id }
     return foundPlacemark
   }
 
-  suspend override fun create(placemark: PlacemarkModel) {
+   override fun create(placemark: PlacemarkModel) {
     val key = db.child("users").child(userId).child("placemarks").push().key
     key?.let {
       placemark.fbId = key
@@ -39,7 +39,7 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
     }
   }
 
-  suspend override fun update(placemark: PlacemarkModel) {
+   override fun update(placemark: PlacemarkModel) {
     var foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.fbId == placemark.fbId }
     if (foundPlacemark != null) {
       foundPlacemark.title = placemark.title
@@ -54,7 +54,7 @@ class PlacemarkFireStore(val context: Context) : PlacemarkStore, AnkoLogger {
     }
   }
 
-  suspend override fun delete(placemark: PlacemarkModel) {
+   override fun delete(placemark: PlacemarkModel) {
     db.child("users").child(userId).child("placemarks").child(placemark.fbId).removeValue()
     placemarks.remove(placemark)
   }

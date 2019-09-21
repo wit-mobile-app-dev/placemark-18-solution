@@ -30,22 +30,22 @@ class PlacemarkJSONStore : PlacemarkStore, AnkoLogger {
     }
   }
 
-  suspend override fun findAll(): MutableList<PlacemarkModel> {
+   override fun findAll(): MutableList<PlacemarkModel> {
     return placemarks
   }
 
-  suspend override fun findById(id:Long) : PlacemarkModel? {
+   override fun findById(id:Long) : PlacemarkModel? {
     val foundPlacemark: PlacemarkModel? = placemarks.find { it.id == id }
     return foundPlacemark
   }
 
-  suspend override fun create(placemark: PlacemarkModel) {
+   override fun create(placemark: PlacemarkModel) {
     placemark.id = generateRandomId()
     placemarks.add(placemark)
     serialize()
   }
 
-  suspend override fun update(placemark: PlacemarkModel) {
+   override fun update(placemark: PlacemarkModel) {
     val placemarksList = findAll() as ArrayList<PlacemarkModel>
     var foundPlacemark: PlacemarkModel? = placemarksList.find { p -> p.id == placemark.id }
     if (foundPlacemark != null) {
@@ -57,7 +57,7 @@ class PlacemarkJSONStore : PlacemarkStore, AnkoLogger {
     serialize()
   }
 
-  suspend override fun delete(placemark: PlacemarkModel) {
+   override fun delete(placemark: PlacemarkModel) {
     placemarks.remove(placemark)
     serialize()
   }

@@ -15,22 +15,22 @@ class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
 
   val placemarks = ArrayList<PlacemarkModel>()
 
-  suspend override fun findAll(): List<PlacemarkModel> {
+   override fun findAll(): List<PlacemarkModel> {
     return placemarks
   }
 
-  suspend override fun findById(id:Long) : PlacemarkModel? {
+   override fun findById(id:Long) : PlacemarkModel? {
     val foundPlacemark: PlacemarkModel? = placemarks.find { it.id == id }
     return foundPlacemark
   }
 
-  suspend override fun create(placemark: PlacemarkModel) {
+   override fun create(placemark: PlacemarkModel) {
     placemark.id = getId()
     placemarks.add(placemark)
     logAll()
   }
 
-  suspend override fun update(placemark: PlacemarkModel) {
+   override fun update(placemark: PlacemarkModel) {
     var foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.id == placemark.id }
     if (foundPlacemark != null) {
       foundPlacemark.title = placemark.title
@@ -41,7 +41,7 @@ class PlacemarkMemStore : PlacemarkStore, AnkoLogger {
     }
   }
 
-  suspend override fun delete(placemark: PlacemarkModel) {
+   override fun delete(placemark: PlacemarkModel) {
     placemarks.remove(placemark)
   }
   

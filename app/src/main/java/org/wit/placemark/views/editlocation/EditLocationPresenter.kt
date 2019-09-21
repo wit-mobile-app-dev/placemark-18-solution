@@ -15,7 +15,7 @@ class EditLocationPresenter(view: BaseView) : BasePresenter(view) {
   var location = Location()
 
   init {
-    location = view.intent.extras.getParcelable<Location>("location")
+    location = view.intent.extras?.getParcelable<Location>("location")!!
   }
 
   fun doConfigureMap(map: GoogleMap) {

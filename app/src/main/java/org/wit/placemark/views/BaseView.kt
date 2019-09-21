@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import org.jetbrains.anko.AnkoLogger
+import org.wit.placemark.models.Location
 
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.editlocation.EditLocationView
@@ -51,9 +53,9 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
     setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(upEnabled)
     val user = FirebaseAuth.getInstance().currentUser
-    if (user != null) {
-      toolbar.title = "${title}: ${user.email}"
-    }
+//    if (user != null) {
+//      toolbar.title = "${title}: ${user.email}"
+//    }
   }
 
   override fun onDestroy() {
@@ -75,6 +77,7 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
 
   open fun showPlacemark(placemark: PlacemarkModel) {}
   open fun showPlacemarks(placemarks: List<PlacemarkModel>) {}
+  open fun showLocation(location : Location) {}
   open fun showProgress() {}
   open fun hideProgress() {}
 }

@@ -5,8 +5,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BasePresenter
 import org.wit.placemark.views.BaseView
@@ -23,14 +21,11 @@ class PlacemarkMapPresenter(view: BaseView) : BasePresenter(view) {
     }
   }
 
-  fun doMarkerSelected(marker: Marker) {
-    val placemark = marker.tag as PlacemarkModel
-    if (placemark != null) view?.showPlacemark(placemark)
+  fun findPlacemark (id: Long) : PlacemarkModel? {
+    return app.placemarks.findById(id)
   }
 
-  fun loadPlacemarks() {
-    async(UI) {
-      view?.showPlacemarks(app.placemarks.findAll())
-    }
+  fun loadPlacemarks() : List<PlacemarkModel>{
+    return app.placemarks.findAll()
   }
 }

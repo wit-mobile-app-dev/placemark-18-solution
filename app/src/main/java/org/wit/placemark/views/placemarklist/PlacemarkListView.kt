@@ -8,6 +8,8 @@ import kotlinx.android.synthetic.main.activity_placemark_list.*
 import org.wit.placemark.R
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BaseView
+import org.jetbrains.anko.activityUiThread
+import org.jetbrains.anko.doAsync
 
 class PlacemarkListView :  BaseView(), PlacemarkListener {
 
@@ -22,7 +24,12 @@ class PlacemarkListView :  BaseView(), PlacemarkListener {
 
     val layoutManager = LinearLayoutManager(this)
     recyclerView.layoutManager = layoutManager
-    presenter.loadPlacemarks()
+    doAsync {
+      val placemarks = presenter.loadPlacemarks();
+      activityUiThread {
+        showPlacemarks(placemarks);
+      }
+    }
   }
 
   override fun showPlacemarks(placemarks: List<PlacemarkModel>) {
@@ -49,7 +56,12 @@ class PlacemarkListView :  BaseView(), PlacemarkListener {
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    presenter.loadPlacemarks()
+    doAsync {
+      val placemarks = presenter.loadPlacemarks();
+      activityUiThread {
+        showPlacemarks(placemarks);
+      }
+    }
     super.onActivityResult(requestCode, resultCode, data)
   }
 }

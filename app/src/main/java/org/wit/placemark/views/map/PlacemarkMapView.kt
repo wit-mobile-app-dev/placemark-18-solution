@@ -7,6 +7,8 @@ import com.google.android.gms.maps.model.Marker
 import org.wit.placemark.R
 import kotlinx.android.synthetic.main.activity_placemark_map.*
 import kotlinx.android.synthetic.main.content_placemark_map.*
+import org.jetbrains.anko.activityUiThread
+import org.jetbrains.anko.doAsync
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BaseView
 
@@ -26,7 +28,12 @@ class PlacemarkMapView : BaseView(), GoogleMap.OnMarkerClickListener {
     mapView.getMapAsync {
       map = it
       map.setOnMarkerClickListener(this)
-      presenter.loadPlacemarks()
+      doAsync {
+        val placemarks = presenter.loadPlacemarks()
+        activityUiThread {
+          showPlacemarks(placemarks)
+        }
+      }
     }
   }
 
@@ -41,7 +48,13 @@ class PlacemarkMapView : BaseView(), GoogleMap.OnMarkerClickListener {
   }
 
   override fun onMarkerClick(marker: Marker): Boolean {
-    presenter.doMarkerSelected(marker)
+    val placemark = marker.tag as PlacemarkModel
+    doAsync {
+     // val placemark = presenter.findPlacemark(tag)
+      activityUiThread {
+        if (placemark != null) showPlacemark(placemark)
+      }
+    }
     return true
   }
 
@@ -65,7 +78,7 @@ class PlacemarkMapView : BaseView(), GoogleMap.OnMarkerClickListener {
     mapView.onResume()
   }
 
-  override fun onSaveInstanceState(outState: Bundle?) {
+  override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     mapView.onSaveInstanceState(outState)
   }

@@ -2,6 +2,7 @@ package org.wit.placemark.views.login
 
 import android.os.Bundle
 import android.widget.ProgressBar
+import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
 import org.wit.placemark.R
@@ -13,6 +14,7 @@ class LoginView : BaseView() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
     setContentView(R.layout.activity_login)
     init(toolbar, false)
     progressBar.visibility = ProgressBar.INVISIBLE

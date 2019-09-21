@@ -1,6 +1,7 @@
 package org.wit.placemark.main
 
 import android.app.Application
+import com.google.firebase.FirebaseApp
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.placemark.models.json.PlacemarkJSONStore
@@ -16,7 +17,9 @@ class MainApp : Application(), AnkoLogger {
     super.onCreate()
     //placemarks = PlacemarkJSONStore(applicationContext)
     //placemarks = PlacemarkStoreRoom(applicationContext)
+    FirebaseApp.initializeApp(this);
     placemarks = PlacemarkFireStore(applicationContext)
     info("Placemark started")
+
   }
 }

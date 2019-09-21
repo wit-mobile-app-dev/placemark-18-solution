@@ -10,8 +10,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
 import org.wit.placemark.helpers.checkLocationPermissions
 import org.wit.placemark.helpers.createDefaultLocationRequest
 import org.wit.placemark.helpers.isPermissionGranted
@@ -32,7 +30,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   init {
     if (view.intent.hasExtra("placemark_edit")) {
       edit = true
-      placemark = view.intent.extras.getParcelable<PlacemarkModel>("placemark_edit")
+      placemark = view.intent.extras?.getParcelable<PlacemarkModel>("placemark_edit")!!
       view.showPlacemark(placemark)
     } else {
       if (checkLocationPermissions(view)) {
@@ -81,24 +79,21 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
     placemark.location = location
     placemark.location.zoom = 15f
     map?.clear()
-    map?.uiSettings?.setZoomControlsEnabled(true)
+    //ßtemap?.uiSettings?.setZoomControlsEnabled(true)
     val options = MarkerOptions().title(placemark.title).position(LatLng(placemark.location.lat, placemark.location.lng))
     map?.addMarker(options)
     map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(placemark.location.lat, placemark.location.lng), placemark.location.zoom))
-    view?.showPlacemark(placemark)
+    view?.showLocation(placemark.location)
   }
 
 
   fun doAddOrSave(title: String, description: String) {
     placemark.title = title
     placemark.description = description
-    async(UI) {
-      if (edit) {
-        app.placemarks.update(placemark)
-      } else {
-        app.placemarks.create(placemark)
-      }
-      view?.finish()
+    if (edit) {
+      app.placemarks.update(placemark)
+    } else {
+      app.placemarks.create(placemark)
     }
   }
 
@@ -107,10 +102,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
   }
 
   fun doDelete() {
-    async(UI) {
-      app.placemarks.delete(placemark)
-      view?.finish()
-    }
+    app.placemarks.delete(placemark)
   }
 
   fun doSelectImage() {
@@ -130,7 +122,7 @@ class PlacemarkPresenter(view: BaseView) : BasePresenter(view) {
         view?.showPlacemark(placemark)
       }
       LOCATION_REQUEST -> {
-        val location = data.extras.getParcelable<Location>("location")
+        val location = data.extras?.getParcelable<Location>("location")!!
         placemark.location = location
         locationUpdate(location)
       }

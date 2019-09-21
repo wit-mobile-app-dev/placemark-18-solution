@@ -6,9 +6,16 @@ import android.view.Menu
 import android.view.MenuItem
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_placemark.*
+import kotlinx.android.synthetic.main.placemark_details.*
+import kotlinx.android.synthetic.main.placemark_image.*
+import kotlinx.android.synthetic.main.placemark_location.*
+import kotlinx.android.synthetic.main.placemark_position.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.activityUiThread
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.wit.placemark.R
+import org.wit.placemark.models.Location
 import org.wit.placemark.models.PlacemarkModel
 import org.wit.placemark.views.BaseView
 
@@ -21,9 +28,9 @@ class PlacemarkView : BaseView(), AnkoLogger {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_placemark)
 
-    init(toolbarAdd, true)
+    init(toolbar, true)
 
-    presenter = initPresenter (PlacemarkPresenter(this)) as PlacemarkPresenter
+    presenter = initPresenter(PlacemarkPresenter(this)) as PlacemarkPresenter
 
     mapView.onCreate(savedInstanceState);
     mapView.getMapAsync {
@@ -41,8 +48,12 @@ class PlacemarkView : BaseView(), AnkoLogger {
     if (placemark.image != null) {
       chooseImage.setText(R.string.change_placemark_image)
     }
-    lat.setText("%.6f".format(placemark.location.lat))
-    lng.setText("%.6f".format(placemark.location.lng))
+    this.showLocation(placemark.location)
+  }
+
+  override fun showLocation(location: Location) {
+    lat.setText("%.6f".format(location.lat))
+    lng.setText("%.6f".format(location.lng))
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -50,16 +61,26 @@ class PlacemarkView : BaseView(), AnkoLogger {
     return super.onCreateOptionsMenu(menu)
   }
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    when (item?.itemId) {
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
       R.id.item_delete -> {
-        presenter.doDelete()
+        doAsync {
+          presenter.doDelete()
+          activityUiThread {
+            finish()
+          }
+        }
       }
       R.id.item_save -> {
         if (placemarkTitle.text.toString().isEmpty()) {
           toast(R.string.enter_placemark_title)
         } else {
-          presenter.doAddOrSave(placemarkTitle.text.toString(), description.text.toString())
+          doAsync {
+            presenter.doAddOrSave(placemarkTitle.text.toString(), description.text.toString())
+            activityUiThread {
+              finish()
+            }
+          }
         }
       }
     }
@@ -98,7 +119,7 @@ class PlacemarkView : BaseView(), AnkoLogger {
     presenter.doResartLocationUpdates()
   }
 
-  override fun onSaveInstanceState(outState: Bundle?) {
+  override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     mapView.onSaveInstanceState(outState)
   }

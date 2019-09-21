@@ -80,7 +80,7 @@
       android:id="@+id/textView2"
       android:layout_width="70dp"
       android:layout_height="29dp"
-      android:text="Password"
+      android:text="@string/password"
       android:textAlignment="textEnd"
       app:layout_constraintBaseline_toBaselineOf="@+id/password"
       app:layout_constraintEnd_toEndOf="@+id/textView"

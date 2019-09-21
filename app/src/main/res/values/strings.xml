@@ -20,4 +20,5 @@
   <string name="title_activity_placemark">Placemark</string>
   <string name="title_activity_edit_location">Placemark</string>
   <string name="title_activity_login"> Signup/Login to Placemark</string>
+  <string name="password">Password</string>
 </resources>
